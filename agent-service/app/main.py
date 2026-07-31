@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 
-from schemas.patient import PatientCreate
+from schemas.guest import GuestCreate
 from schemas.chat import ChatRequest
-from schemas.appointment import AppointmentCreate
+from schemas.reservation import ReservationCreate
 
 from db.supabase_client import supabase
 from agent.agent import run_agent
@@ -39,30 +39,30 @@ def chat(request: ChatRequest):
     }
 
 
-@app.post("/patient")
-def create_patient(patient: PatientCreate):
+@app.post("/guest")
+def create_guest(guest: GuestCreate):
 
-    supabase.table("patients").insert({
-        "phone": patient.phone,
-        "name": patient.name,
-        "age": patient.age,
-        "gender": patient.gender
+    supabase.table("guests").insert({
+        "phone": guest.phone,
+        "name": guest.name,
+        "age": guest.age,
+        "gender": guest.gender
     }).execute()
 
     return {
-        "message": "Patient created successfully"
+        "message": "Guest created successfully"
     }
 
 
-@app.post("/appointment")
-def create_appointment(request: AppointmentCreate):
+@app.post("/reservation")
+def create_reservation(request: ReservationCreate):
 
-    supabase.table("appointments").insert({
-        "patient_phone": request.patient_phone,
-        "doctor_name": request.doctor_name,
-        "appointment_date": request.appointment_date
+    supabase.table("reservations").insert({
+        "guest_phone": request.guest_phone,
+        "room_name": request.room_name,
+        "reservation_date": request.reservation_date
     }).execute()
 
     return {
-        "message": "Appointment created successfully"
+        "message": "Reservation created successfully"
     }

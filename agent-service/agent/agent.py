@@ -4,7 +4,7 @@ from agent.prompts import SYSTEM_PROMPT
 from app.config import get_settings
 from db.supabase_client import supabase
 from rag.retriever import retrieve_context
-from tools.appointment_tool import create_appointment
+from tools.reservation_tool import create_reservation
 
 import json
 
@@ -20,26 +20,26 @@ llm = ChatGoogleGenerativeAI(
 def run_agent(phone: str, text: str) -> str:
 
     # ==========================
-    # بيانات المريض
+    # بيانات الضيف
     # ==========================
 
-    patient = (
-        supabase.table("patients")
+    guest = (
+        supabase.table("guests")
         .select("*")
         .eq("phone", phone)
         .execute()
     )
 
-    patient_info = ""
+    guest_info = ""
 
-    if patient.data:
+    if guest.data:
 
-        p = patient.data[0]
+        g = guest.data[0]
 
-        patient_info = f"""
-اسم المريض: {p.get("name")}
-العمر: {p.get("age")}
-الجنس: {p.get("gender")}
+        guest_info = f"""
+اسم الضيف: {g.get("name")}
+العمر: {g.get("age")}
+الجنس: {g.get("gender")}
 """
 
     # ==========================
@@ -49,7 +49,7 @@ def run_agent(phone: str, text: str) -> str:
     history = (
         supabase.table("conversations")
         .select("*")
-        .eq("patient_phone", phone)
+        .eq("guest_phone", phone)
         .order("created_at", desc=True)
         .limit(5)
         .execute()
@@ -62,7 +62,7 @@ def run_agent(phone: str, text: str) -> str:
         for msg in reversed(history.data):
 
             conversation_history += f"""
-المريض:
+الضيف:
 {msg["user_message"]}
 
 المساعد:
@@ -78,13 +78,13 @@ def run_agent(phone: str, text: str) -> str:
     prompt = f"""
 {SYSTEM_PROMPT}
 
-معلومات المركز الطبي:
+معلومات الفندق:
 
 {knowledge}
 
-بيانات المريض:
+بيانات الضيف:
 
-{patient_info}
+{guest_info}
 
 سجل المحادثات:
 
@@ -151,19 +151,19 @@ def run_agent(phone: str, text: str) -> str:
 
         result = json.loads(content)
 
-        if result.get("intent") == "appointment":
+        if result.get("intent") == "reservation":
 
-            create_appointment(
-                patient_phone=phone,
-                doctor_name=result.get("doctor_name"),
-                appointment_date=result.get("appointment_date")
+            create_reservation(
+                guest_phone=phone,
+                room_name=result.get("room_name"),
+                reservation_date=result.get("reservation_date")
             )
 
             answer = (
-                f"تم تأكيد حجزك مع "
-                f"{result.get('doctor_name')} "
+                f"تم تأكيد حجزك لـ "
+                f"{result.get('room_name')} "
                 f"بتاريخ "
-                f"{result.get('appointment_date')}"
+                f"{result.get('reservation_date')}"
             )
 
         else:
@@ -182,7 +182,7 @@ def run_agent(phone: str, text: str) -> str:
 
         supabase.table("conversations").insert({
 
-            "patient_phone": phone,
+            "guest_phone": phone,
             "user_message": text,
             "ai_response": answer
 

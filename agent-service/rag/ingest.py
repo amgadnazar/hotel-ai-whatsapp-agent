@@ -24,7 +24,7 @@ docs = []
 
 
 csv_files = [
-    KNOWLEDGE_DIR / "doctors.csv",
+    KNOWLEDGE_DIR / "rooms.csv",
     KNOWLEDGE_DIR / "services.csv",
     KNOWLEDGE_DIR / "schedules.csv",
     KNOWLEDGE_DIR / "faq.csv",

@@ -1,5 +1,5 @@
 from app.database import supabase
 
-response = supabase.table("patients").select("*").execute()
+response = supabase.table("guests").select("*").execute()
 
 print(response.data)

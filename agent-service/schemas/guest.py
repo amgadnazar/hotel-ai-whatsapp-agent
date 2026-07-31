@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-class PatientCreate(BaseModel):
+class GuestCreate(BaseModel):
     phone: str
     name: str
     age: int
