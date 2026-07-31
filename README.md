@@ -1,7 +1,7 @@
-# 🩺 AI Medical WhatsApp Assistant
+# 🏨 AI Hotel WhatsApp Assistant
 
 <p align="center">
-  <img src="Screenshots/hero.png" alt="AI Medical WhatsApp Assistant">
+  <img src="Screenshots/hero.png" alt="AI Hotel WhatsApp Assistant">
 </p>
 
 ![Python](https://img.shields.io/badge/Python-3.13-blue?logo=python)
@@ -13,21 +13,23 @@
 ![Node.js](https://img.shields.io/badge/Node.js-Backend-339933?logo=node.js)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 
-An AI-powered medical assistant that enables patients to communicate with a healthcare center directly through WhatsApp.
+An AI-powered hotel concierge that enables guests to communicate with a hotel directly through WhatsApp.
 
-The system uses Google's Gemini AI together with Retrieval-Augmented Generation (RAG) to answer patient questions, provide healthcare information, and book appointments automatically.
+The system uses Google's Gemini AI together with Retrieval-Augmented Generation (RAG) to answer guest questions, provide hotel information, and create room reservations automatically.
+
+This project demonstrates how Large Language Models (LLMs), Retrieval-Augmented Generation (RAG), and WhatsApp automation can be combined to build an intelligent hotel concierge capable of answering guest inquiries, providing hotel information, and managing room reservations through natural conversations.
 
 ---
 
 # Features
 
-- 🤖 AI-powered medical assistant
+- 🤖 AI-powered hotel concierge
 - 💬 WhatsApp integration
 - 🧠 Google Gemini AI
 - 📚 Retrieval-Augmented Generation (RAG)
-- 📅 Appointment booking
-- 👤 Patient management
-- 🏥 Medical knowledge base
+- 🛏️ Room reservation
+- 👤 Guest management
+- 🏨 Hotel knowledge base
 - 💾 Supabase database
 - ⚡ FastAPI backend
 - 🔍 Conversation history
@@ -35,7 +37,6 @@ The system uses Google's Gemini AI together with Retrieval-Augmented Generation 
 ---
 
 # Tech Stack
-
 
 | Category | Technologies |
 |----------|--------------|
@@ -49,8 +50,8 @@ The system uses Google's Gemini AI together with Retrieval-Augmented Generation 
 
 # Project Structure
 
-```
-medical-ai-whatsapp-agent/
+```text
+hotel-ai-whatsapp-agent/
 
 ├── agent-service/
 │   ├── agent/
@@ -73,13 +74,13 @@ medical-ai-whatsapp-agent/
 
 # System Workflow
 
-1. Patient sends a WhatsApp message.
+1. Guest sends a WhatsApp message.
 2. WhatsApp Service receives the message.
 3. FastAPI backend processes the request.
-4. RAG retrieves medical knowledge.
-5. Gemini AI generates a response.
-6. Patient receives the answer instantly.
-7. If needed, an appointment is automatically created and stored in Supabase.
+4. RAG retrieves relevant hotel knowledge.
+5. Gemini AI generates an intelligent response.
+6. Guest receives the answer instantly.
+7. If needed, a room reservation is automatically created and stored in Supabase.
 
 ---
 
@@ -88,7 +89,7 @@ medical-ai-whatsapp-agent/
 ## Clone the repository
 
 ```bash
-git clone https://github.com/amgadnazar/medical-ai-whatsapp-agent.git
+git clone https://github.com/amgadnazar/hotel-ai-whatsapp-agent.git
 ```
 
 ## Backend
@@ -119,10 +120,9 @@ node index.js
 
 ---
 
-
 # API Documentation
 
-The backend is built using **FastAPI** and exposes RESTful APIs for patient management, AI chat, and appointment booking.
+The backend is built using **FastAPI** and exposes RESTful APIs for guest management, AI chat, and room reservation.
 
 ## Available Endpoints
 
@@ -130,8 +130,8 @@ The backend is built using **FastAPI** and exposes RESTful APIs for patient mana
 |--------|----------|-------------|
 | GET | `/` | Health check endpoint |
 | POST | `/chat` | Send a message to the AI assistant |
-| POST | `/patient` | Create a new patient |
-| POST | `/appointment` | Create a new appointment |
+| POST | `/guest` | Create a new guest |
+| POST | `/reservation` | Create a new reservation |
 
 ---
 
@@ -165,7 +165,7 @@ GET /
 
 ## AI Chat
 
-Send a patient message to the AI assistant.
+Send a guest message to the AI assistant.
 
 ### Request
 
@@ -178,7 +178,7 @@ POST /chat
 ```json
 {
   "phone": "+201234567890",
-  "text": "I want to book an appointment with a dentist."
+  "text": "I'd like to reserve a Deluxe Room for tomorrow."
 }
 ```
 
@@ -186,20 +186,20 @@ POST /chat
 
 ```json
 {
-  "reply": "Your appointment has been booked successfully."
+  "reply": "Your reservation request has been received."
 }
 ```
 
 ---
 
-## Create Patient
+## Create Guest
 
-Creates a new patient record.
+Creates a new guest record.
 
 ### Request
 
 ```http
-POST /patient
+POST /guest
 ```
 
 ### Body
@@ -217,29 +217,29 @@ POST /patient
 
 ```json
 {
-  "message": "Patient created successfully"
+  "message": "Guest created successfully"
 }
 ```
 
 ---
 
-## Create Appointment
+## Create Reservation
 
-Creates a new appointment manually.
+Creates a new reservation manually.
 
 ### Request
 
 ```http
-POST /appointment
+POST /reservation
 ```
 
 ### Body
 
 ```json
 {
-  "patient_phone": "+201234567890",
-  "doctor_name": "Dr. Ahmed",
-  "appointment_date": "2026-06-30 10:00"
+  "guest_phone": "+201234567890",
+  "room_name": "Deluxe Room",
+  "reservation_date": "2026-08-15"
 }
 ```
 
@@ -247,7 +247,7 @@ POST /appointment
 
 ```json
 {
-  "message": "Appointment created successfully"
+  "message": "Reservation created successfully"
 }
 ```
 
@@ -288,7 +288,7 @@ FastAPI automatically generates an interactive Swagger UI where you can test eve
 
 ---
 
-## Appointment Booking
+## Room Reservation
 
 <p align="center">
   <img src="Screenshots/appointment-booking.png" width="900">
@@ -302,18 +302,22 @@ FastAPI automatically generates an interactive Swagger UI where you can test eve
   <img src="Screenshots/supabase-tables.png" width="900">
 </p>
 
+---
+
 # System Architecture
 
 <p align="center">
     <img src="Screenshots/architecture.png" width="1000">
 </p>
 
+---
+
 # Future Improvements
 
 - Voice messages
 - Arabic speech recognition
-- Doctor dashboard
-- Patient dashboard
+- Hotel management dashboard
+- Multi-room support
 - Docker deployment
 - Cloud deployment
 - Multi-language support
