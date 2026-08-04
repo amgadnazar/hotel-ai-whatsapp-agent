@@ -1,4 +1,4 @@
-# 🏨 AI Hotel WhatsApp Assistant
+#  AI Hotel WhatsApp Assistant
 
 <p align="center">
   <img src="Screenshots/hero.png" alt="AI Hotel WhatsApp Assistant">
