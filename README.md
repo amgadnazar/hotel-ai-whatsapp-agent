@@ -23,16 +23,16 @@ This project demonstrates how Large Language Models (LLMs), Retrieval-Augmented 
 
 # Features
 
-- 🤖 AI-powered hotel concierge
-- 💬 WhatsApp integration
-- 🧠 Google Gemini AI
-- 📚 Retrieval-Augmented Generation (RAG)
-- 🛏️ Room reservation
-- 👤 Guest management
-- 🏨 Hotel knowledge base
-- 💾 Supabase database
-- ⚡ FastAPI backend
-- 🔍 Conversation history
+-  AI-powered hotel concierge
+-  WhatsApp integration
+-  Google Gemini AI
+-  Retrieval-Augmented Generation (RAG)
+-  Room reservation
+-  Guest management
+-  Hotel knowledge base
+-  Supabase database
+-  FastAPI backend
+-  Conversation history
 
 ---
 
